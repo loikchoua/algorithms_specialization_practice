@@ -72,3 +72,47 @@ func TestSort(t *testing.T) {
 		})
 	}
 }
+
+func TestSortAndCountInversions(t *testing.T) {
+	type args struct {
+		a []int
+	}
+	tests := []struct {
+		name                   string
+		args                   args
+		wantSorted             []int
+		wantNumberOfInversions int
+	}{
+		{
+			name: "1 inversion",
+			args: args{
+				[]int{2, 1},
+			},
+			wantSorted:             []int{1, 2},
+			wantNumberOfInversions: 1,
+		},
+		{
+			name: "3 inversions",
+			args: args{
+				[]int{1, 3, 5, 2, 4, 6},
+			},
+			wantSorted:             []int{1, 2, 3, 4, 5, 6},
+			wantNumberOfInversions: 3,
+		},
+		{
+			name: "4 inversions",
+			args: args{
+				[]int{3, 2, 1, 5, 7, 6},
+			},
+			wantSorted:             []int{1, 2, 3, 5, 6, 7},
+			wantNumberOfInversions: 4,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			gotSorted, gotNumberOfInversions := SortAndCountInversions(tt.args.a)
+			require.Equal(t, tt.wantSorted, gotSorted)
+			require.Equal(t, tt.wantNumberOfInversions, gotNumberOfInversions)
+		})
+	}
+}
